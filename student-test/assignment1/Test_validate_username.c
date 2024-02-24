@@ -20,5 +20,5 @@ void test_validate_my_username()
      */
 const char*username=my_username();
 const char*anotherusername=malloc_username_from_conf_file();
-TEST_ASSERT_EQUAL_STRING_MESSAGE(username, anotherusername, "AESD students, please fix me!");
+TEST_ASSERT_EQUAL_STRING(username, anotherusername);
 }
