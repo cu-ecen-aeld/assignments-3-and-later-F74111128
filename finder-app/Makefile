@@ -1,7 +1,6 @@
 all: writer
 
 compile=gcc
-
 ifdef CROSS_COMPILE
 	compile=aarch64-none-linux-gnu-gcc
 endif
