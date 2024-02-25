@@ -1,8 +1,9 @@
 #include "systemcalls.h"
-#include <stdlib.h>
-#include <unistd.h>
+
 #include <fcntl.h>
+#include <stdlib.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 /**
  * @param cmd the command to execute with system()
@@ -60,7 +61,7 @@ bool do_exec(int count, ...) {
     if (pid == -1) {  // Fork failed
         return false;
     } else if (pid == 0) {  // Child process
-        if(execve(command[0], command, NULL) == -1) exit(1);
+        if (execve(command[0], command, NULL) == -1) exit(1);
     } else {  // Parent process
         int status;
         if (waitpid(pid, &status, 0) == -1) return false;
@@ -102,7 +103,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...) {
         int redirct = dup2(fd, STDOUT_FILENO);
         close(fd);
         if (redirct == -1) return false;
-        if(execv(command[0], command) == -1) exit(1);
+        if (execv(command[0], command) == -1) exit(1);
     } else {  // Parent process
         int status;
         if (waitpid(pid, &status, 0) == -1) return false;
