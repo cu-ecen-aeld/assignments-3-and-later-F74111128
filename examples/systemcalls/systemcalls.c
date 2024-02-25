@@ -60,17 +60,12 @@ bool do_exec(int count, ...) {
     if (pid == -1) {  // Fork failed
         return false;
     } else if (pid == 0) {  // Child process
-        if(execve(command[0], command, NULL) == -1) return false;
+        if(execve(command[0], command, NULL) == -1) exit(1);
     } else {  // Parent process
         int status;
         if (waitpid(pid, &status, 0) == -1) return false;
-        // printf("\n\n %s %s %s\n\n", command[0], command[1], command[2]);
-        // printf("\n\n |%d| \n\n",WEXITSTATUS(status));
-        if (WEXITSTATUS(status) != 0) return false;
-        
+        if (status) return false;
     }
-    // printf("\n\n %s %s \n\n", command[0], command[1]);
-
     return true;
 }
 
@@ -107,11 +102,11 @@ bool do_exec_redirect(const char *outputfile, int count, ...) {
         int redirct = dup2(fd, STDOUT_FILENO);
         close(fd);
         if (redirct == -1) return false;
-        if(execv(command[0], command) == -1) return false;
+        if(execv(command[0], command) == -1) exit(1);
     } else {  // Parent process
         int status;
         if (waitpid(pid, &status, 0) == -1) return false;
-        if (WEXITSTATUS(status) != 0) return false;
+        if (status) return false;
     }
     return true;
 }
