@@ -14,10 +14,8 @@
  */
 bool do_system(const char *cmd) {
     int result = system(cmd);
-    if (result == 0)
-        return true;
-    else
-        return false;
+    if (result == 0) return true;
+    return false;
 }
 
 /**
@@ -100,9 +98,8 @@ bool do_exec_redirect(const char *outputfile, int count, ...) {
         return false;
     } else if (pid == 0) {  // Child process
         int fd = open(outputfile, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-        int redirct = dup2(fd, STDOUT_FILENO);
+        dup2(fd, STDOUT_FILENO);
         close(fd);
-        if (redirct == -1) return false;
         if (execv(command[0], command) == -1) exit(1);
     } else {  // Parent process
         int status;
