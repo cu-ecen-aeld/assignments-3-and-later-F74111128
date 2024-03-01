@@ -118,8 +118,7 @@ cp autorun-qemu.sh "${OUTDIR}/rootfs/home"
 
 # TODO: Chown the root directory
 echo "Chown the root directory"
-cd "${OUTDIR}/rootfs"
-sudo chown -R root:root *
+sudo chown -R root:root "${OUTDIR}/rootfs"
 
 # TODO: Create initramfs.cpio.gz
 echo "Create initramfs.cpio.gz"
