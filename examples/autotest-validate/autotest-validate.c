@@ -27,9 +27,5 @@ bool this_function_returns_false()
  */
 const char *my_username()
 {
-<<<<<<< HEAD
-    return "erichung9060";
-=======
     return "F74111128";
->>>>>>> 36427d2c9f66ba46565b46f0221c85349785c4de
 }
